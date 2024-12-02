@@ -1,0 +1,29 @@
+stages:          
+  - compile
+  - build
+  - deploy
+
+compile-job:      
+  stage: compile
+  tags:
+    - "self-hosted"
+  script:
+    - echo "Compiling the code..."
+    - mvn clean compile
+
+
+build-job:   
+  stage: build
+  tags:
+    - "self-hosted"    
+  script:
+    - echo "Maven Build"
+    - mvn clean package
+
+deploy-job:      
+  stage: deploy
+  tags:
+    - "self-hosted"  
+  script:
+    - echo "Deploying application..."
+    - docker run -p 8080:8080 springcommunity/spring-framework-petclinic
